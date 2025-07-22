@@ -21,9 +21,6 @@ import { ChannelStats } from "@/components/channel-stats";
 import { AnimatedCounter } from "@/components/animated-counter";
 import { DitherBackground } from "@/components/dither-background";
 import { TextType } from "@/components/text-type";
-import GooeyNav from "@/components/gooey-nav";
-import { RollingGallery } from "@/components/rolling-gallery";
-import ClickSpark from "@/components/ClickSpark";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -84,12 +81,6 @@ export default function Home() {
       uploadTime: "3 months ago",
       embedId: "dQw4w9WgXcQ",
     },
-  ];
-
-  const items = [
-    { label: "Home", href: "#" },
-    { label: "About", href: "#" },
-    { label: "Contact", href: "#" },
   ];
 
   useEffect(() => {
@@ -170,27 +161,6 @@ export default function Home() {
                 </p>
               </div>
             </div>
-
-            <div style={{ height: "600px", position: "relative" }}>
-              <GooeyNav
-                items={items}
-                particleCount={15}
-                particleDistances={[90, 10]}
-                particleR={100}
-                initialActiveIndex={0}
-                animationTime={600}
-                timeVariance={300}
-                colors={[1, 2, 3, 1, 2, 3, 1, 4]}
-              />
-            </div>
-            <ClickSpark
-              sparkColor="#fff"
-              sparkSize={10}
-              sparkRadius={15}
-              sparkCount={8}
-              duration={400}
-            >
-            </ClickSpark>
           </nav>
         </div>
       </header>
@@ -201,11 +171,9 @@ export default function Home() {
           <div className="max-w-6xl mx-auto">
             <div className="flex flex-col items-center mb-12">
               <div className="relative mb-8">
-                <ClickSpark sparkColor="#10b981">
                   <div className="w-40 h-40 bg-gradient-to-br from-green-400 via-green-500 to-green-600 rounded-full flex items-center justify-center shadow-2xl border-4 border-green-200 hover:scale-110 transition-transform duration-500 cursor-pointer">
                     <span className="text-white font-black text-5xl">P</span>
                   </div>
-                </ClickSpark>
                 <div className="absolute -bottom-2 -right-2 bg-gray-500 text-white px-3 py-1 rounded-full text-xs font-bold">
                   OFFLINE
                 </div>
@@ -247,7 +215,6 @@ export default function Home() {
             <ChannelStats />
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center mt-12">
-              <ClickSpark sparkColor="#10b981">
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-400 hover:to-green-500 text-lg px-10 py-4 shadow-lg hover:shadow-green-500/25 transition-all duration-300 hover:scale-105"
@@ -255,8 +222,6 @@ export default function Home() {
                   <Play className="w-6 h-6 mr-3" />
                   Watch Latest Video
                 </Button>
-              </ClickSpark>
-              <ClickSpark sparkColor="#10b981">
                 <Button
                   size="lg"
                   variant="outline"
@@ -265,7 +230,6 @@ export default function Home() {
                   <Gamepad2 className="w-6 h-6 mr-3" />
                   Play My Obbies
                 </Button>
-              </ClickSpark>
             </div>
           </div>
         </div>
@@ -284,7 +248,32 @@ export default function Home() {
             </p>
           </div>
 
-          <RollingGallery videos={videos} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {videos.map((video) => (
+              <Card key={video.id} className="overflow-hidden hover:shadow-xl transition-all duration-500 hover:scale-105 bg-white border border-green-200 group">
+                <div className="aspect-video bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center relative overflow-hidden">
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  <div className="absolute bottom-2 right-2 bg-black/50 text-white px-2 py-1 rounded-md text-xs">
+                    {video.duration}
+                  </div>
+                </div>
+                <CardContent className="p-6">
+                  <h4 className="font-bold text-lg mb-2 text-gray-900 group-hover:text-green-600 transition-colors duration-300">
+                    {video.title}
+                  </h4>
+                  <div className="flex items-center text-sm text-gray-500">
+                    <span>{video.views}</span>
+                    <span className="mx-2">•</span>
+                    <span>{video.uploadTime}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -371,12 +360,10 @@ export default function Home() {
                     <span className="text-3xl font-bold text-green-600">
                       {item.price}
                     </span>
-                    <ClickSpark sparkColor="#10b981">
                       <Button className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 hover:shadow-lg transition-all duration-300 hover:scale-105">
                         <ShoppingBag className="w-4 h-4 mr-2" />
                         Add to Cart
                       </Button>
-                    </ClickSpark>
                   </div>
                 </CardContent>
               </Card>
@@ -426,8 +413,7 @@ export default function Home() {
                     "New videos every week with fresh content, tutorials, and the latest updates!",
                 },
               ].map((item, index) => (
-                <ClickSpark key={index} sparkColor="#10b981">
-                  <Card className="p-8 bg-green-50/50 border border-green-200 hover:border-green-300 transition-all duration-500 hover:scale-105 group cursor-pointer">
+                  <Card key={index} className="p-8 bg-green-50/50 border border-green-200 hover:border-green-300 transition-all duration-500 hover:scale-105 group cursor-pointer">
                     <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
                       <item.icon className="w-8 h-8 text-white" />
                     </div>
@@ -438,7 +424,6 @@ export default function Home() {
                       {item.description}
                     </p>
                   </Card>
-                </ClickSpark>
               ))}
             </div>
           </div>
